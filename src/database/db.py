@@ -1,15 +1,7 @@
 import contextlib
 
-from sqlalchemy import (
-    create_engine,
-    Integer,
-    String,
-    Boolean,
-    text,
-)
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, Mapped
 
 from src.conf.config import config
 
@@ -36,6 +28,7 @@ class DatabaseSessionManager:
 
 
 session_manager = DatabaseSessionManager(config.SQLALCHEMY_DATABASE_URL)
+
 
 async def get_db():
     async with session_manager.session() as session:

@@ -1,9 +1,9 @@
-from datetime import date
+from datetime import date, datetime
 
-from sqlalchemy import String, Date
+from sqlalchemy import String, Date, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column
 
-from base_model import IDOrmModel
+from .base_model import IDOrmModel
 
 
 class Contact(IDOrmModel):
@@ -16,5 +16,15 @@ class Contact(IDOrmModel):
         nullable=False,
         unique=True,
     )
-    phone_number: Mapped[str] = mapped_column(String(20))
-    birthday: Mapped[date] = mapped_column(Date)
+    phone_number: Mapped[str] = mapped_column(String(20), nullable=True)
+    birthday: Mapped[date] = mapped_column(Date, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        "created_at", DateTime(timezone=True), default=func.now(), nullable=False
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        "updated_at",
+        DateTime(timezone=True),
+        default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
