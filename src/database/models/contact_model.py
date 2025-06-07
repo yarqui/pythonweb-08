@@ -19,12 +19,15 @@ class Contact(IDOrmModel):
     phone_number: Mapped[str] = mapped_column(String(20), nullable=True)
     birthday: Mapped[date] = mapped_column(Date, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        "created_at", DateTime(timezone=True), default=func.now(), nullable=False
+        "created_at",
+        DateTime(timezone=True),
+        default=func.now(),  # pylint: disable=not-callable
+        nullable=False,
     )
     updated_at: Mapped[datetime] = mapped_column(
         "updated_at",
         DateTime(timezone=True),
-        default=func.now(),
-        onupdate=func.now(),
+        default=func.now(),  # pylint: disable=not-callable
+        onupdate=func.now(),  # pylint: disable=not-callable
         nullable=False,
     )
